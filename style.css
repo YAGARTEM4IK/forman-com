@@ -541,3 +541,70 @@ footer {
     width: 300px;
     height: 300px;
 }
+
+.hamburger {
+    display: none;
+}
+
+/* Адаптивные стили для экранов до 425px */
+@media (max-width: 425px) {
+    header {
+        flex-direction: column; /* Размещаем логотип и навигацию вертикально */
+        align-items: flex-start;  /* Выравниваем по левому краю */
+        position: relative; /* Добавлено для гамбургер-меню */
+    }
+
+    .logo-container {
+        margin-bottom: 10px; /* Отступ между лого и гамбургером */
+    }
+
+    nav {
+        width: 100%;  /* Навигация занимает всю ширину */
+    }
+
+    nav ul {
+        display: none; /* Скрываем пункты меню по умолчанию */
+        flex-direction: column; /* Размещаем пункты меню вертикально */
+        width: 100%; /* Меню занимает всю ширину */
+        margin-top: 10px;
+        background-color: #fff; /* Фон для меню */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для меню */
+        padding: 0;
+    }
+
+    nav li {
+        margin: 0;       /* Убираем отступы */
+        padding: 10px;    /* Добавляем отступы для читаемости */
+        border-bottom: 1px solid #ddd;  /* Разделитель между пунктами */
+        text-align: left; /* Выравниваем текст по левому краю */
+    }
+
+    nav a {
+        display: block;   /* Ссылка занимает всю ширину пункта */
+        padding: 5px;
+    }
+
+    /* Стили для показа меню (добавится JavaScript'ом) */
+    nav ul.active {
+        display: flex; /* Показываем меню */
+    }
+
+    /* Кнопка "гамбургер" */
+    .hamburger {
+        display: block;   /* Показываем кнопку */
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    .hamburger .line {
+        width: 25px;
+        height: 3px;
+        background-color: #333;
+        margin: 5px 0;
+    }
+}

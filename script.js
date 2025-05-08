@@ -8,6 +8,12 @@ const fileNameDisplay = document.getElementById('file-name');
 const imagePreview = document.getElementById('image-preview');
 const fileSizeDisplay = document.getElementById('file-size');
 const fileTypeDisplay = document.getElementById('file-type');
+const hamburger = document.querySelector('.hamburger');
+const navUL = document.querySelector('nav ul');
+
+hamburger.addEventListener('click', () => {
+    navUL.classList.toggle('active');
+});
 
 button.addEventListener('click', () => {
     const text = textArea.value.trim();
