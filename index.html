@@ -3,65 +3,743 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>forMan.com - Разговоры о пиджаках</title>
-    <meta name="description" content="forMan.com - Все о мужской моде: пиджаки, костюмы, рубашки, обувь и аксессуары.">
-    <meta name="keywords" content="мужская мода, пиджаки, стиль, forMan">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <title>Forman | Эксклюзивные пиджаки ручной работы</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #1a1a2e;    /* Темно-синий */
+            --secondary: #a67c52;  /* Коричневый */
+            --light: #f8f5f2;      /* Светлый крем */
+            --accent: #8b0000;     /* Бордовый */
+            --text: #333333;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            color: var(--text);
+            background-color: var(--light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 15px 0;
+            background-color: rgba(26, 26, 46, 0.95);
+        }
+
+        header.scrolled .logo,
+        header.scrolled nav a {
+            color: white;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            position: relative;
+            font-size: 16px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .burger span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--primary);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('https://images.unsplash.com/photo-1598033129183-c4f50c736f10?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80') no-repeat center/cover;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent);
+            color: white;
+            border-radius: 0;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Collections Section */
+        .section-title {
+            text-align: center;
+            margin: 80px 0 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .collection-card {
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .collection-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .collection-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .collection-img {
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .collection-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .collection-card:hover .collection-img img {
+            transform: scale(1.05);
+        }
+
+        .collection-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .collection-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .collection-info .price {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 80px 0;
+            background: url('https://images.unsplash.com/photo-1520975916090-3105956ffac8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80') no-repeat center/cover;
+            position: relative;
+            color: white;
+            text-align: center;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 46, 0.8);
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-content h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .about-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Customization Section */
+        .customization {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .customization-steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .step {
+            flex: 0 0 calc(25% - 30px);
+            text-align: center;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .step.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: var(--accent);
+        }
+
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column ul li a {
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .customization-steps {
+                justify-content: center;
+            }
+            
+            .step {
+                flex: 0 0 calc(50% - 30px);
+            }
+            
+            .hero h1 {
+                font-size: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: var(--transition);
+                color: white;
+            }
+
+            nav.active {
+                left: 0;
+            }
+
+            .burger {
+                display: block;
+                z-index: 1001;
+            }
+
+            .burger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .burger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .burger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .hero {
+                padding-top: 60px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .section-title h2 {
+                font-size: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .btn {
+                padding: 10px 25px;
+            }
+            
+            .step {
+                flex: 0 0 100%;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <div class="logo-container">
-            <h1>forMan.com</h1>
-            <p>Разговоры о пиджаках</p>
+        <div class="container header-container">
+            <a href="#" class="logo">FOR<span>MAN</span></a>
+            
+            <nav class="nav">
+                <a href="#collections">Коллекции</a>
+                <a href="#about">О нас</a>
+                <a href="#customization">Индивидуальный пошив</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+            
+            <div class="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="articles.html">Статьи</a></li>
-                <li><a href="discussions.html">Обсуждения</a></li>
-                <li><a href="calculator.html">Калькулятор</a></li>
-            </ul>
-        </nav>
     </header>
 
-    <main>
-        <section class="input-section">
-            <h2>Напишите свое сообщение</h2>
-            <div class="input-container">
-                <textarea placeholder="Введите текст" name="writeText" id="writeText"></textarea>
-                <div id="messageError" class="message-error"></div>
-                <div class="actions">
-                    <label for="file-upload" class="custom-file-upload">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
-                          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                          <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-                        </svg>
-                        Загрузить файл
-                    </label>
-                    <input id="file-upload" type="file" accept="image/*" /> <!-- Accept only image files -->
-                    <button id="send">Отправить</button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Эксклюзивные пиджаки ручной работы</h1>
+            <p>Создаем идеальные пиджаки по вашим меркам с 1995 года</p>
+            <a href="#collections" class="btn">Смотреть коллекцию</a>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section id="collections" class="collections">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши коллекции</h2>
+            </div>
+            
+            <div class="collections-grid">
+                <div class="collection-card">
+                    <div class="collection-img">
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Классический пиджак">
+                    </div>
+                    <div class="collection-info">
+                        <h3>Классическая линия</h3>
+                        <p>Традиционные силуэты из лучших тканей</p>
+                        <div class="price">от 25 000 ₽</div>
+                    </div>
                 </div>
-                 <!-- Image Preview -->
-                 <div id="file-info">
-                  <p id="file-name"></p>
-                  <img id="image-preview" src="#" alt="Превью изображения" style="display: none; max-width: 200px;">
-                  <p id="file-size"></p>
-                  <p id="file-type"></p>
+                
+                <div class="collection-card">
+                    <div class="collection-img">
+                        <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Современный пиджак">
+                    </div>
+                    <div class="collection-info">
+                        <h3>Современная коллекция</h3>
+                        <p>Авангардные решения для смелых образов</p>
+                        <div class="price">от 30 000 ₽</div>
+                    </div>
+                </div>
+                
+                <div class="collection-card">
+                    <div class="collection-img">
+                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Вечерний пиджак">
+                    </div>
+                    <div class="collection-info">
+                        <h3>Вечерние пиджаки</h3>
+                        <p>Роскошь и элегантность для особых случаев</p>
+                        <div class="price">от 45 000 ₽</div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="output-section">
-            <h2>Ваши сообщения:</h2>
-            <div id="output"></div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 forMan.com. Все права защищены.</p>
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container about-content">
+            <h2>О мастерской Forman</h2>
+            <p>С 1995 года мы создаем пиджаки, которые становятся частью истории наших клиентов. Каждое изделие - это результат кропотливой работы мастеров с многолетним опытом.</p>
+            <p>Мы используем только лучшие ткани из Италии и Англии, а каждый пиджак проходит 12 этапов контроля качества.</p>
+            <a href="#customization" class="btn">Заказать индивидуальный пошив</a>
+        </div>
+    </section>
+
+    <!-- Customization Section -->
+    <section id="customization" class="customization">
+        <div class="container">
+            <div class="section-title">
+                <h2>Индивидуальный пошив</h2>
+            </div>
+            
+            <div class="customization-steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-ruler-combined"></i>
+                    </div>
+                    <h3>Снятие мерок</h3>
+                    <p>Точные измерения по 25 параметрам</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>Выбор ткани</h3>
+                    <p>Более 500 вариантов премиальных тканей</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-pencil-alt"></i>
+                    </div>
+                    <h3>Дизайн</h3>
+                    <p>Создание уникального эскиза</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>Примерка</h3>
+                    <p>3 этапа примерок для идеальной посадки</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Forman</h3>
+                    <p>Эксклюзивные пиджаки ручной работы с 1995 года</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Москва, ул. Савинская, 15</li>
+                        <li><i class="fas fa-phone"></i> +7 (495) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@forman.ru</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Часы работы</h3>
+                    <ul>
+                        <li>Пн-Пт: 10:00 - 20:00</li>
+                        <li>Сб: 11:00 - 18:00</li>
+                        <li>Вс: выходной</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Forman. Все права защищены.</p>
+            </div>
+        </div>
     </footer>
-    <script src="script.js"></script>
+
+    <script>
+        // Mobile Navigation
+        const burger = document.querySelector('.burger');
+        const nav = document.querySelector('.nav');
+        
+        burger.addEventListener('click', () => {
+            burger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        // Scroll Animation
+        const animateElements = () => {
+            const elements = document.querySelectorAll('.collection-card, .step');
+            
+            elements.forEach((el, index) => {
+                const elementPosition = el.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    setTimeout(() => {
+                        el.classList.add('animate');
+                    }, index * 200);
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateElements);
+        animateElements(); // Initialize
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (nav.classList.contains('active')) {
+                        burger.classList.remove('active');
+                        nav.classList.remove('active');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
